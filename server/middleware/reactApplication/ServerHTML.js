@@ -54,6 +54,12 @@ function ServerHTML(props) {
     reactAppString,
   } = props;
 
+  let { criticalStyles } = props;
+
+  if (criticalStyles === undefined) {
+    criticalStyles = [];
+  }
+
   // Creates an inline script definition that is protected by the nonce.
   const inlineScript = body => (
     <script type="text/javascript" dangerouslySetInnerHTML={{ __html: addHash(body) }} />
@@ -116,6 +122,7 @@ function ServerHTML(props) {
       ))}
       bodyElements={bodyElements.map((x, idx) => <KeyedComponent key={idx}>{x}</KeyedComponent>)}
       appBodyString={reactAppString}
+      criticalStyles={criticalStyles}
     />
   );
 }

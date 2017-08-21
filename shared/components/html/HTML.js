@@ -22,11 +22,16 @@ function HTML(props) {
     headerElements,
     bodyElements,
     appBodyString,
+    criticalStyles,
   } = props;
 
   return (
     <html {...htmlAttributes}>
       <head>
+        <style
+          type="text/css"
+          dangerouslySetInnerHTML={{ __html: criticalStyles }}
+        />
         { headerElements }
       </head>
       <body>

@@ -125,6 +125,7 @@
     "react-jobs": "1.0.0-beta.3",
     "react-router": "4.1.1",
     "react-router-dom": "4.1.1",
+    "react-ssr-critical-styles": "^0.1.2",
     "regenerator-runtime": "0.10.5",
     "rimraf": "2.6.1",
     "sass-loader": "6.0.3",

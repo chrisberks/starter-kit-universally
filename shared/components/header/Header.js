@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { addCriticalStyles } from 'react-ssr-critical-styles';
 import UenoLogoSvg from 'assets/images/ueno-logo.svg';
 import s from './Header.scss';
 
-export default class Header extends Component {
+class Header extends Component {
 
   static propTypes = {
     children: PropTypes.node,
@@ -28,3 +29,5 @@ export default class Header extends Component {
     );
   }
 }
+
+export default addCriticalStyles(s)(Header);

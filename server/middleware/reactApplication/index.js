@@ -3,6 +3,7 @@ import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { AsyncComponentProvider, createAsyncContext } from 'react-async-component';
 import { JobProvider, createJobContext } from 'react-jobs';
+import { GatherCriticalStyles, stringifyStyles } from 'react-ssr-critical-styles';
 import asyncBootstrapper from 'react-async-bootstrapper';
 import { Provider, useStaticRendering } from 'mobx-react';
 import Helmet from 'react-helmet';
@@ -61,15 +62,19 @@ export default function reactApplicationMiddleware(request, response) {
   // Initialize the store
   const store = new Store();
 
+  let criticalStyles = [];
+
   // Declare our React application.
   const app = (
     <AsyncComponentProvider asyncContext={asyncComponentsContext}>
       <JobProvider jobContext={jobContext}>
-        <StaticRouter location={request.url} context={reactRouterContext}>
-          <Provider {...store}>
-            <App />
-          </Provider>
-        </StaticRouter>
+        <GatherCriticalStyles addCriticalStyles={(s) => criticalStyles.push(s)}>
+          <StaticRouter location={request.url} context={reactRouterContext}>
+            <Provider {...store}>
+              <App />
+            </Provider>
+          </StaticRouter>
+        </GatherCriticalStyles>
       </JobProvider>
     </AsyncComponentProvider>
   );
@@ -92,6 +97,7 @@ export default function reactApplicationMiddleware(request, response) {
         routerState={reactRouterContext}
         jobsState={jobContext.getState()}
         asyncComponentsState={asyncComponentsContext.getState()}
+        criticalStyles={stringifyStyles(criticalStyles)}
       />,
     );
 
