@@ -97,7 +97,7 @@ export default function reactApplicationMiddleware(request, response) {
         routerState={reactRouterContext}
         jobsState={jobContext.getState()}
         asyncComponentsState={asyncComponentsContext.getState()}
-        criticalStyles={stringifyStyles(criticalStyles)}
+        criticalStyles={(criticalStyles)}
       />,
     );
 

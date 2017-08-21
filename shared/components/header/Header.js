@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addCriticalStyles } from 'react-ssr-critical-styles';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import UenoLogoSvg from 'assets/images/ueno-logo.svg';
 import s from './Header.scss';
 
@@ -30,4 +30,4 @@ class Header extends Component {
   }
 }
 
-export default addCriticalStyles(s)(Header);
+export default withStyles(s)(Header);
