@@ -530,17 +530,7 @@ export default function webpackConfigFactory(buildOptions) {
           test: /node_modules.*\.css$/,
           use: ifProdClient(ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: [
-              'isomorphic-style-loader',
-              {
-                loader: 'css-loader',
-                options: {
-                  importLoaders: 1
-                }
-              },
-              'css-loader',
-              'postcss-loader'
-            ],
+            use: ['css-loader', 'postcss-loader'],
           }), [
             ...ifNode(['css-loader/locals'], ['style-loader', 'css-loader']),
             'postcss-loader',
@@ -571,6 +561,7 @@ export default function webpackConfigFactory(buildOptions) {
             emitFile: isClient,
           },
         })),
+
 
         // SVG IMPORT loader
         {

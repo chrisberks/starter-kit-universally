@@ -1,17 +1,62 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import { Link } from 'react-router-dom';
-import withStyles from 'isomorphic-style-loader/lib/withStyles';
 import UenoLogoSvg from 'assets/images/ueno-logo.svg';
 import s from './Header.scss';
 
-class Header extends Component {
+export default class Header extends Component {
 
   static propTypes = {
     children: PropTypes.node,
   };
 
+  criticalStyles() {
+
+    return (
+
+      <Helmet>
+        {/* <style
+          type="text/css"
+          dangerouslySetInnerHTML={{ __html: criticalstuff}}
+        /> */}
+        <style type="text/css">
+
+          {`
+            body{ background: #4FF;}
+            .${s.header}{
+              background: #0F0;
+            }
+            .${s.header__container}{
+              padding: 0 70px;
+              max-width: 1370px;
+            }
+            .${s.header__content}{
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-align: center;
+              -ms-flex-align: center;
+              align-items: center;
+              padding: 30px 0;
+              border-bottom: 1px solid #ccc;
+            }
+            .${s.header__navigation}{
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              margin-left: auto;
+            }
+          `}
+
+        </style>
+      </Helmet>
+    );
+  }
+
   render() {
+
+
     return (
       <header className={s.header}>
         <div className={s.header__container}>
@@ -25,9 +70,8 @@ class Header extends Component {
             </div>
           </div>
         </div>
+        {this.criticalStyles()}
       </header>
     );
   }
 }
-
-export default withStyles(s)(Header);
